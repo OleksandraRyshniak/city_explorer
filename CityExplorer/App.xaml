@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CityExplorer.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!-- Põhivärvid -->
+            <Color x:Key="PrimaryColor">#1A1A2E</Color>
+            <Color x:Key="AccentColor">#E63946</Color>
+            <Color x:Key="SecondaryColor">#0072CE</Color>
+            <Color x:Key="BackgroundLight">#F5F5F5</Color>
+            <Color x:Key="BackgroundDark">#121212</Color>
+            <Color x:Key="SurfaceLight">#FFFFFF</Color>
+            <Color x:Key="SurfaceDark">#1E1E1E</Color>
+
+            <!-- Globaalsed stiilid -->
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="OpenSansRegular" />
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="OpenSansSemibold" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:views="clr-namespace:CityExplorer.Views"
+            xmlns:strings="clr-namespace:CityExplorer.Resources.Localization"
+            x:Class="CityExplorer.Views.MainTabbedPage"
+            Title="CityExplorer"
+            BarBackgroundColor="#1A1A2E"
+            BarTextColor="White"
+            SelectedTabColor="#E63946"
+            UnselectedTabColor="#888888">
+
+    <TabbedPage.Children>
+        <views:ExplorePage
+            Title="{x:Static strings:AppResources.ExploreTab}"
+            IconImageSource="explore.png" />
+
+        <views:FavoritesPage
+            Title="{x:Static strings:AppResources.FavoritesTab}"
+            IconImageSource="favorites.png" />
+
+        <views:SettingsPage
+            Title="{x:Static strings:AppResources.SettingsTab}"
+            IconImageSource="settings.png" />
+    </TabbedPage.Children>
+</TabbedPage>
