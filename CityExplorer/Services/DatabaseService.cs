@@ -42,6 +42,15 @@ public class DatabaseService
     }
 
     /// <summary>
+    /// Tagastab KÕIK kohad andmebaasist (Admin vaate jaoks).
+    /// </summary>
+    public async Task<List<Place>> GetAllPlacesAsync()
+    {
+        await InitAsync();
+        return await _database!.Table<Place>().ToListAsync();
+    }
+
+    /// <summary>
     /// Salvestab koha andmebaasi (INSERT kui uus, UPDATE kui olemasolev).
     /// </summary>
     public async Task<int> SavePlaceAsync(Place place)

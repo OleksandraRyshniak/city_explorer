@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CityExplorer.Models;
+using CityExplorer.Resources.Localization;
 using CityExplorer.Services;
 
 namespace CityExplorer.ViewModels;
@@ -12,7 +13,7 @@ namespace CityExplorer.ViewModels;
 public class FavoritesViewModel : BaseViewModel
 {
     private readonly DatabaseService _databaseService;
-    private ObservableCollection<Place> _favorites = [];
+    private ObservableCollection<Place> _favorites = new ObservableCollection<Place>();
 
     public ObservableCollection<Place> Favorites
     {
@@ -31,7 +32,7 @@ public class FavoritesViewModel : BaseViewModel
         RemoveCommand = new Command<Place>(async (place) => await RemoveFavoriteAsync(place));
     }
 
-    private async Task LoadFavoritesAsync()
+    public async Task LoadFavoritesAsync()
     {
         var favorites = await _databaseService.GetFavoritesAsync();
         Favorites = new ObservableCollection<Place>(favorites);
@@ -40,9 +41,10 @@ public class FavoritesViewModel : BaseViewModel
     private async Task RemoveFavoriteAsync(Place place)
     {
         bool confirm = await Application.Current!.MainPage!.DisplayAlert(
-            "Kustuta lemmik",
-            $"Eemaldada \"{place.Name}\" lemmikute nimekirjast?",
-            "Jah", "Ei");
+            AppResources.DeleteFavorite,
+            $"\"{place.Name}\" {AppResources.DeleteConfirm}",
+            AppResources.Yes,
+            AppResources.No);
 
         if (!confirm) return;
 

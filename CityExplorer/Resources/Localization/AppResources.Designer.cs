@@ -61,11 +61,83 @@ namespace CityExplorer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на -.
+        /// </summary>
+        internal static string AddedMessage {
+            get {
+                return ResourceManager.GetString("AddedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на -.
+        /// </summary>
+        internal static string AddedToFavorites {
+            get {
+                return ResourceManager.GetString("AddedToFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Lisa lemmikutesse ❤️.
         /// </summary>
         internal static string AddToFavorites {
             get {
                 return ResourceManager.GetString("AddToFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на -.
+        /// </summary>
+        internal static string AdminError {
+            get {
+                return ResourceManager.GetString("AdminError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на -.
+        /// </summary>
+        internal static string AdminSaved {
+            get {
+                return ResourceManager.GetString("AdminSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на -.
+        /// </summary>
+        internal static string ApplyTheme {
+            get {
+                return ResourceManager.GetString("ApplyTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на -.
+        /// </summary>
+        internal static string CurrentTheme {
+            get {
+                return ResourceManager.GetString("CurrentTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на -.
+        /// </summary>
+        internal static string DeleteConfirm {
+            get {
+                return ResourceManager.GetString("DeleteConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на -.
+        /// </summary>
+        internal static string DeleteFavorite {
+            get {
+                return ResourceManager.GetString("DeleteFavorite", resourceCulture);
             }
         }
         
@@ -115,11 +187,29 @@ namespace CityExplorer.Resources.Localization {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ei.
+        /// </summary>
+        internal static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Lemmikud puuduvad. Avasta uusi kohti!.
         /// </summary>
         internal static string NoFavorites {
             get {
                 return ResourceManager.GetString("NoFavorites", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на OK.
+        /// </summary>
+        internal static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         
@@ -147,6 +237,24 @@ namespace CityExplorer.Resources.Localization {
         internal static string SettingsTitle {
             get {
                 return ResourceManager.GetString("SettingsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на -.
+        /// </summary>
+        internal static string ThemeChanged {
+            get {
+                return ResourceManager.GetString("ThemeChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Jah.
+        /// </summary>
+        internal static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

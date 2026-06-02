@@ -26,17 +26,20 @@ public static class MauiProgram
         // ── Teenused (Services) ──────────────────────────────────────────────
         // Singleton: üks eksemplar kogu rakenduse eluea jooksul
         builder.Services.AddSingleton<DatabaseService>();
+        
 
         // ── ViewModels ───────────────────────────────────────────────────────
         builder.Services.AddSingleton<ExploreViewModel>();
         builder.Services.AddSingleton<FavoritesViewModel>();
         builder.Services.AddSingleton<SettingsViewModel>();
+        builder.Services.AddSingleton<AdminViewModel>();
 
         // ── Views ────────────────────────────────────────────────────────────
         builder.Services.AddSingleton<ExplorePage>();
         builder.Services.AddSingleton<FavoritesPage>();
         builder.Services.AddSingleton<SettingsPage>();
         builder.Services.AddSingleton<MainTabbedPage>();
+        builder.Services.AddSingleton<AdminPage>();
 
 #if DEBUG
         builder.Logging.AddDebug();
