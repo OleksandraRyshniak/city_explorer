@@ -13,6 +13,13 @@
             <Color x:Key="SurfaceLight">#FFFFFF</Color>
             <Color x:Key="SurfaceDark">#1E1E1E</Color>
 
+            <!-- AppShell aliases -->
+            <Color x:Key="NavBar">#1A1A2E</Color>
+            <Color x:Key="Accent">#E63946</Color>
+            <Color x:Key="AccentBlue">#0072CE</Color>
+            <Color x:Key="CardLight">#FFFFFF</Color>
+            <Color x:Key="CardDark">#2A2A2A</Color>
+
             <!-- Globaalsed stiilid -->
             <Style TargetType="Label">
                 <Setter Property="FontFamily" Value="OpenSansRegular" />

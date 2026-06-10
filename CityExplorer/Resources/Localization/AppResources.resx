@@ -126,6 +126,9 @@
   <data name="SettingsTab" xml:space="preserve">
     <value>Seaded</value>
   </data>
+  <data name="AdminTab" xml:space="preserve">
+    <value>Admin</value>
+  </data>
   <data name="ExploreTitle" xml:space="preserve">
     <value>Avasta Tallinna</value>
   </data>
@@ -135,6 +138,9 @@
   <data name="SettingsTitle" xml:space="preserve">
     <value>Seaded</value>
   </data>
+  <data name="AdminTitle" xml:space="preserve">
+    <value>Haldus</value>
+  </data>
   <data name="AddToFavorites" xml:space="preserve">
     <value>Lisa lemmikutesse ❤️</value>
   </data>
@@ -142,25 +148,28 @@
     <value>Lemmikud puuduvad. Avasta uusi kohti!</value>
   </data>
   <data name="SelectLanguage" xml:space="preserve">
-    <value>Vali keel / Выберите язык / Select language:</value>
+    <value>Vali keel:</value>
+  </data>
+  <data name="ActiveLanguage" xml:space="preserve">
+    <value>Aktiivne keel:</value>
   </data>
   <data name="LanguageChanged" xml:space="preserve">
-    <value>Keel on muudetud. Mõned tekstid uuenevad pärast rakenduse taaskäivitamist.</value>
+    <value>Keel on muudetud. Mõned tekstid uuenevad pärast taaskäivitamist.</value>
   </data>
   <data name="AdminError" xml:space="preserve">
-    <value>-</value>
+    <value>Viga andmete salvestamisel</value>
   </data>
   <data name="OK" xml:space="preserve">
     <value>OK</value>
   </data>
   <data name="AdminSaved" xml:space="preserve">
-    <value>-</value>
+    <value>Koht salvestatud!</value>
   </data>
   <data name="DeleteFavorite" xml:space="preserve">
-    <value>-</value>
+    <value>Kustuta lemmik</value>
   </data>
   <data name="DeleteConfirm" xml:space="preserve">
-    <value>-</value>
+    <value>Kas soovid selle koha lemmikutest eemaldada?</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Jah</value>
@@ -169,18 +178,144 @@
     <value>Ei</value>
   </data>
   <data name="AddedToFavorites" xml:space="preserve">
-    <value>-</value>
+    <value>Lisatud lemmikutesse</value>
   </data>
   <data name="AddedMessage" xml:space="preserve">
-    <value>-</value>
+    <value>Koht on sinu lemmikute hulgas!</value>
   </data>
-  <data name="CurrentTheme" xml:space="preserve">
-    <value>-</value>
+  <data name="AdminPlaceName" xml:space="preserve">
+    <value>Koha nimi</value>
   </data>
-  <data name="ApplyTheme" xml:space="preserve">
-    <value>-</value>
+  <data name="AdminDescription" xml:space="preserve">
+    <value>Kirjeldus</value>
   </data>
-  <data name="ThemeChanged" xml:space="preserve">
-    <value>-</value>
+  <data name="AdminImageUrl" xml:space="preserve">
+    <value>Pildi URL</value>
+  </data>
+  <data name="AdminCategory" xml:space="preserve">
+    <value>Kategooria</value>
+  </data>
+  <data name="AdminSaveButton" xml:space="preserve">
+    <value>Salvesta koht</value>
+  </data>
+  <data name="AdminNoPlaces" xml:space="preserve">
+    <value>Kohti pole lisatud</value>
+  </data>
+  <data name="seaded" xml:space="preserve">
+    <value>Seaded</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Tume teema</value>
+  </data>
+  <data name="DarkThemeHint" xml:space="preserve">
+    <value>Lülita tume režiim sisse/välja</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Keel</value>
+  </data>
+  <data name="LanguageHint" xml:space="preserve">
+    <value>Vali rakenduse keel</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Loe rohkem</value>
+  </data>
+  <data name="FavoriteBadge" xml:space="preserve">
+    <value>❤️ Lemmik</value>
+  </data>
+  <data name="SavedCount" xml:space="preserve">
+    <value>lemmikut salvestatud</value>
+  </data>
+  <data name="AboutApp" xml:space="preserve">
+    <value>City Explorer · Tallinn v1.0</value>
+  </data>
+  <data name="ClearForm" xml:space="preserve">
+    <value>Tühjenda</value>
+  </data>
+  <data name="AddNewPlace" xml:space="preserve">
+    <value>Uue koha lisamine</value>
+  </data>
+  <data name="AllPlaces" xml:space="preserve">
+    <value>Kõik kohad</value>
+  </data>
+  <data name="FromGallery" xml:space="preserve">
+    <value>Galeriist</value>
+  </data>
+  <data name="EmptyDatabase" xml:space="preserve">
+    <value>Kohti pole lisatud</value>
+  </data>
+  <data name="PlaceAdded" xml:space="preserve">
+    <value>Koht on salvestatud!</value>
+  </data>
+  <data name="PlaceUpdated" xml:space="preserve">
+    <value>Koht on uuendatud!</value>
+  </data>
+  <data name="EditPlace" xml:space="preserve">
+    <value>Muutmine</value>
+  </data>
+  <data name="NameDescLabel" xml:space="preserve">
+    <value>Nimi ja kirjeldus</value>
+  </data>
+  <data name="PhotoLabel" xml:space="preserve">
+    <value>Foto</value>
+  </data>
+  <data name="CategoryLabel" xml:space="preserve">
+    <value>Kategooria</value>
+  </data>
+  <data name="CatHistory" xml:space="preserve">
+    <value>Ajalugu</value>
+  </data>
+  <data name="CatParks" xml:space="preserve">
+    <value>Pargid</value>
+  </data>
+  <data name="CatFood" xml:space="preserve">
+    <value>Toidukohad</value>
+  </data>
+  <data name="CatCulture" xml:space="preserve">
+    <value>Kultuur</value>
+  </data>
+  <data name="CatShopping" xml:space="preserve">
+    <value>Ostlemine</value>
+  </data>
+  <data name="CatChurches" xml:space="preserve">
+    <value>Kirikud</value>
+  </data>
+  <data name="CatAll" xml:space="preserve">
+    <value>Kõik</value>
+  </data>
+  <data name="PlaceName" xml:space="preserve">
+    <value>Koha nimi</value>
+  </data>
+  <data name="ShortDescription" xml:space="preserve">
+    <value>Lühikirjeldus</value>
+  </data>
+  <data name="ImageUrlHint" xml:space="preserve">
+    <value>Pildi URL või failinimi</value>
+  </data>
+  <data name="SelectCategory" xml:space="preserve">
+    <value>Vali kategooria</value>
+  </data>
+  <data name="EditingPlace" xml:space="preserve">
+    <value>Muudad kohta:</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Salvesta muutused</value>
+  </data>
+  <data name="DeletePlace" xml:space="preserve">
+    <value>Kustuta koht</value>
+  </data>
+  <data name="DeletePlaceConfirm" xml:space="preserve">
+    <value>Kas soovid kustutada</value>
+  </data>
+  <data name="PlacesInDb" xml:space="preserve">
+    <value>Kohti andmebaasis:</value>
+  </data>
+  <data name="ValidationNameMissing" xml:space="preserve">
+    <value>Palun sisesta koha nimi.</value>
+  </data>
+  <data name="ValidationDescMissing" xml:space="preserve">
+    <value>Palun sisesta lühikirjeldus.</value>
+  </data>
+  <data name="CitySubtitle" xml:space="preserve">
+    <value>🇪🇪 Tallinn</value>
   </data>
 </root>

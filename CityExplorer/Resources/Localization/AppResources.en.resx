@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ExploreTab" xml:space="preserve">
+    <value>Explore</value>
+  </data>
+  <data name="FavoritesTab" xml:space="preserve">
+    <value>Favorites</value>
+  </data>
+  <data name="SettingsTab" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="AdminTab" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="ExploreTitle" xml:space="preserve">
+    <value>Explore Tallinn</value>
+  </data>
+  <data name="FavoritesTitle" xml:space="preserve">
+    <value>My Favorites</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="AdminTitle" xml:space="preserve">
+    <value>Admin Panel</value>
+  </data>
+  <data name="AddToFavorites" xml:space="preserve">
+    <value>Add to Favorites ❤️</value>
+  </data>
+  <data name="NoFavorites" xml:space="preserve">
+    <value>No favorites yet. Explore the city!</value>
+  </data>
+  <data name="SelectLanguage" xml:space="preserve">
+    <value>Select language:</value>
+  </data>
+  <data name="ActiveLanguage" xml:space="preserve">
+    <value>Active language:</value>
+  </data>
+  <data name="LanguageChanged" xml:space="preserve">
+    <value>Language changed. Some texts will update after restart.</value>
+  </data>
+  <data name="AdminError" xml:space="preserve">
+    <value>Error saving data</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="AdminSaved" xml:space="preserve">
+    <value>Place saved!</value>
+  </data>
+  <data name="DeleteFavorite" xml:space="preserve">
+    <value>Remove from Favorites</value>
+  </data>
+  <data name="DeleteConfirm" xml:space="preserve">
+    <value>Remove this place from favorites?</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="AddedToFavorites" xml:space="preserve">
+    <value>Added to Favorites</value>
+  </data>
+  <data name="AddedMessage" xml:space="preserve">
+    <value>Place added to your favorites!</value>
+  </data>
+  <data name="AdminPlaceName" xml:space="preserve">
+    <value>Place name</value>
+  </data>
+  <data name="AdminDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="AdminImageUrl" xml:space="preserve">
+    <value>Image URL</value>
+  </data>
+  <data name="AdminCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="AdminSaveButton" xml:space="preserve">
+    <value>Save Place</value>
+  </data>
+  <data name="AdminNoPlaces" xml:space="preserve">
+    <value>No places added yet</value>
+  </data>
+  <data name="seaded" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Dark Theme</value>
+  </data>
+  <data name="DarkThemeHint" xml:space="preserve">
+    <value>Toggle dark mode on/off</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LanguageHint" xml:space="preserve">
+    <value>Choose app language</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Read more</value>
+  </data>
+  <data name="FavoriteBadge" xml:space="preserve">
+    <value>❤️ Favorite</value>
+  </data>
+  <data name="SavedCount" xml:space="preserve">
+    <value>favorites saved</value>
+  </data>
+  <data name="AboutApp" xml:space="preserve">
+    <value>City Explorer · Tallinn v1.0</value>
+  </data>
+  <data name="ClearForm" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="AddNewPlace" xml:space="preserve">
+    <value>Add New Place</value>
+  </data>
+  <data name="AllPlaces" xml:space="preserve">
+    <value>All Places</value>
+  </data>
+  <data name="FromGallery" xml:space="preserve">
+    <value>From Gallery</value>
+  </data>
+  <data name="EmptyDatabase" xml:space="preserve">
+    <value>No places added yet</value>
+  </data>
+  <data name="PlaceAdded" xml:space="preserve">
+    <value>Place saved!</value>
+  </data>
+  <data name="PlaceUpdated" xml:space="preserve">
+    <value>Place updated!</value>
+  </data>
+  <data name="EditPlace" xml:space="preserve">
+    <value>Editing</value>
+  </data>
+  <data name="NameDescLabel" xml:space="preserve">
+    <value>Name &amp; Description</value>
+  </data>
+  <data name="PhotoLabel" xml:space="preserve">
+    <value>Photo</value>
+  </data>
+  <data name="CategoryLabel" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="CatHistory" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="CatParks" xml:space="preserve">
+    <value>Parks</value>
+  </data>
+  <data name="CatFood" xml:space="preserve">
+    <value>Food</value>
+  </data>
+  <data name="CatCulture" xml:space="preserve">
+    <value>Culture</value>
+  </data>
+  <data name="CatShopping" xml:space="preserve">
+    <value>Shopping</value>
+  </data>
+  <data name="CatChurches" xml:space="preserve">
+    <value>Churches</value>
+  </data>
+  <data name="CatAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="PlaceName" xml:space="preserve">
+    <value>Place name</value>
+  </data>
+  <data name="ShortDescription" xml:space="preserve">
+    <value>Short description</value>
+  </data>
+  <data name="ImageUrlHint" xml:space="preserve">
+    <value>Image URL or filename</value>
+  </data>
+  <data name="SelectCategory" xml:space="preserve">
+    <value>Select category</value>
+  </data>
+  <data name="EditingPlace" xml:space="preserve">
+    <value>Editing place:</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="DeletePlace" xml:space="preserve">
+    <value>Delete Place</value>
+  </data>
+  <data name="DeletePlaceConfirm" xml:space="preserve">
+    <value>Delete place</value>
+  </data>
+  <data name="PlacesInDb" xml:space="preserve">
+    <value>Places in database:</value>
+  </data>
+  <data name="ValidationNameMissing" xml:space="preserve">
+    <value>Please enter a place name.</value>
+  </data>
+  <data name="ValidationDescMissing" xml:space="preserve">
+    <value>Please enter a description.</value>
+  </data>
+  <data name="CitySubtitle" xml:space="preserve">
+    <value>🇪🇪 Tallinn</value>
+  </data>
+</root>

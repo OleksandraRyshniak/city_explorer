@@ -1,128 +1,136 @@
 using CityExplorer.Models;
 using CityExplorer.Resources.Localization;
+using CityExplorer.Services;
 using CityExplorer.ViewModels;
 using Microsoft.Maui.Controls;
-
+using Microsoft.Maui.Controls.Shapes;
 
 namespace CityExplorer.Views
 {
     public partial class ExplorePage : ContentPage
     {
         private readonly ExploreViewModel _viewModel;
+        private CarouselView _carousel = null!;
+        private int _position = 0;
+        private bool _isPaused = false;
+        private string _lastBuiltCulture = "";
 
-        // ────────────────────────────────────────────────────────────────
-        //  Конструктор – DI через параметр (MauiProgram.cs регистрирует)
-        // ────────────────────────────────────────────────────────────────
         public ExplorePage(ExploreViewModel viewModel)
         {
             _viewModel = viewModel;
             BindingContext = _viewModel;
+            Shell.SetNavBarIsVisible(this, false);
             BuildUI();
         }
 
-        // Пустой конструктор для обратной совместимости
-        public ExplorePage()
-        {
-            BuildUI();
-        }
+        public ExplorePage() { Shell.SetNavBarIsVisible(this, false); BuildUI(); }
 
-        // ────────────────────────────────────────────────────────────────
-        //  Построение всего UI программно
-        // ────────────────────────────────────────────────────────────────
+        private static string GetCurrentCulture() =>
+            AppResources.Culture?.Name
+            ?? System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
+
         private void BuildUI()
         {
-            BackgroundColor = AppInfo.RequestedTheme == AppTheme.Dark
-                ? Color.FromArgb("#121212")
-                : Color.FromArgb("#F5F5F5");
+            _lastBuiltCulture = GetCurrentCulture();
+            this.SetAppThemeColor(BackgroundColorProperty,
+                Color.FromArgb("#F0F4FF"), ThemeService.SurfaceDark);
 
-            // ── Шапка ──────────────────────────────────────────────────
-            var header = new StackLayout
+            // ── Header ─────────────────────────────────────────────────────
+            var titleLbl = new Label
             {
-                BackgroundColor = Color.FromArgb("#1A1A2E"),
-                Padding = new Thickness(16, 48, 16, 16),
-                Children =
-                {
-                    new Label
-                    {
-                        Text = AppResources.ExploreTitle,
-                        FontSize = 28,
-                        FontAttributes = FontAttributes.Bold,
-                        TextColor = Colors.White
-                    },
-                    new Label
-                    {
-                        Text = "🇪🇪 Tallinn",
-                        FontSize = 14,
-                        TextColor = Color.FromArgb("#AAAAAA")
-                    }
-                }
+                Text = AppResources.ExploreTitle,
+                FontSize = 30,
+                FontAttributes = FontAttributes.Bold,
+                TextColor = Colors.White
+            };
+            var subtitleLbl = new Label
+            {
+                Text = AppResources.CitySubtitle,
+                FontSize = 14,
+                TextColor = Color.FromArgb("#9DB4D8")
             };
 
-            // ── IndicatorView (объявляем раньше CarouselView) ───────────
+            var header = new VerticalStackLayout
+            {
+                Padding = new Thickness(20, 52, 20, 20),
+                Spacing = 4,
+                Children = { titleLbl, subtitleLbl }
+            };
+            header.SetAppThemeColor(BackgroundColorProperty,
+                Color.FromArgb("#0D1B2A"), Color.FromArgb("#050A10"));
+
+            // ── IndicatorView ───────────────────────────────────────────────
             var indicator = new IndicatorView
             {
-                IndicatorColor = Color.FromArgb("#CCCCCC"),
-                SelectedIndicatorColor = Color.FromArgb("#E63946"),
                 IndicatorSize = 8,
+                SelectedIndicatorColor = ThemeService.Accent,
                 HorizontalOptions = LayoutOptions.Center,
-                Margin = new Thickness(0, 6, 0, 0)
+                Margin = new Thickness(0, 8, 0, 0)
             };
+            indicator.SetAppThemeColor(IndicatorView.IndicatorColorProperty,
+                Color.FromArgb("#CBD5E1"), Color.FromArgb("#334155"));
 
-            // ── CarouselView ────────────────────────────────────────────
-            var carousel = new CarouselView
+            // ── CarouselView ────────────────────────────────────────────────
+            _carousel = new CarouselView
             {
                 IndicatorView = indicator,
                 Loop = true,
-                HeightRequest = 400,
-                PeekAreaInsets = new Thickness(16)
+                HeightRequest = 380,
+                PeekAreaInsets = new Thickness(20)
             };
-            carousel.SetBinding(ItemsView.ItemsSourceProperty, nameof(ExploreViewModel.Places));
-            carousel.ItemTemplate = BuildCarouselTemplate();
+            _carousel.SetBinding(ItemsView.ItemsSourceProperty, nameof(ExploreViewModel.Places));
+            _carousel.ItemTemplate = BuildCarouselTemplate();
 
-            var carouselStack = new StackLayout
+            Dispatcher.StartTimer(TimeSpan.FromSeconds(4), () =>
             {
-                Children = { carousel, indicator }
-            };
+                if (_carousel?.ItemsSource is not System.Collections.IList list || list.Count == 0)
+                    return true;
+                if (!_isPaused)
+                {
+                    _position = (_position + 1) % list.Count;
+                    _carousel.Position = _position;
+                }
+                return true;
+            });
 
-            // ── Боковое меню категорий ──────────────────────────────────
-            var categoriesCollection = new CollectionView
+            // ── Category sidebar ────────────────────────────────────────────
+            var catCollection = new CollectionView
             {
-                ItemsLayout = new LinearItemsLayout(ItemsLayoutOrientation.Vertical) { ItemSpacing = 6 }
+                ItemsLayout = new LinearItemsLayout(ItemsLayoutOrientation.Vertical) { ItemSpacing = 8 },
+                ItemTemplate = BuildCategoryTemplate()
             };
-            categoriesCollection.SetBinding(ItemsView.ItemsSourceProperty, nameof(ExploreViewModel.Categories));
-            categoriesCollection.ItemTemplate = BuildCategoryTemplate();
+            catCollection.SetBinding(ItemsView.ItemsSourceProperty, nameof(ExploreViewModel.Categories));
 
-            var categoryScroll = new ScrollView
+            var catScroll = new ScrollView
             {
                 Orientation = ScrollOrientation.Vertical,
                 VerticalScrollBarVisibility = ScrollBarVisibility.Never,
                 Content = new VerticalStackLayout
                 {
-                    Padding = new Thickness(4, 8),
-                    Spacing = 6,
-                    Children = { categoriesCollection }
+                    Padding = new Thickness(6, 10),
+                    Spacing = 0,
+                    Children = { catCollection }
                 }
             };
 
-            // ── Основная сетка (контент) ────────────────────────────────
             var contentGrid = new Grid
             {
-                Margin = new Thickness(0, 8, 0, 0),
+                Margin = new Thickness(0, 10, 0, 0),
                 ColumnDefinitions =
                 {
                     new ColumnDefinition { Width = GridLength.Star },
-                    new ColumnDefinition { Width = new GridLength(64) }
+                    new ColumnDefinition { Width = new GridLength(66) }
                 }
             };
+            var carouselStack = new StackLayout { Children = { _carousel, indicator } };
             Grid.SetColumn(carouselStack, 0);
-            Grid.SetColumn(categoryScroll, 1);
+            Grid.SetColumn(catScroll, 1);
             contentGrid.Children.Add(carouselStack);
-            contentGrid.Children.Add(categoryScroll);
+            contentGrid.Children.Add(catScroll);
 
-            // ── Корневой Grid ───────────────────────────────────────────
             var root = new Grid
             {
-                Padding = new Thickness(0, 0, 0, 8),
+                Padding = new Thickness(0, 0, 0, 10),
                 RowDefinitions =
                 {
                     new RowDefinition { Height = GridLength.Auto },
@@ -137,153 +145,190 @@ namespace CityExplorer.Views
             Content = root;
         }
 
-        // ────────────────────────────────────────────────────────────────
-        //  DataTemplate для карточки карусели
-        // ────────────────────────────────────────────────────────────────
         private DataTemplate BuildCarouselTemplate()
         {
             return new DataTemplate(() =>
             {
-                // Изображение
-                var image = new Image { Aspect = Aspect.AspectFill, HeightRequest = 220 };
+                // Full-bleed image
+                var image = new Image { Aspect = Aspect.AspectFill };
                 image.SetBinding(Image.SourceProperty, nameof(Place.ImageUrl));
 
-                // Значок категории поверх изображения
-                var emojiLabel = new Label { FontSize = 18 };
-                emojiLabel.SetBinding(Label.TextProperty, nameof(Place.CategoryEmoji));
-                var emojiBadge = new Frame
+                // Gradient overlay (bottom)
+                var gradient = new BoxView
                 {
-                    BackgroundColor = Color.FromArgb("#CC000000"),
-                    CornerRadius = 12,
-                    Padding = new Thickness(6, 3),
+                    Background = new LinearGradientBrush(
+                        new GradientStopCollection
+                        {
+                            new GradientStop(Colors.Transparent, 0f),
+                            new GradientStop(Color.FromArgb("#E0000000"), 1f)
+                        },
+                        new Point(0, 0), new Point(0, 1))
+                };
+
+                // Category badge — top left
+                var emojiLabel = new Label { FontSize = 20 };
+                emojiLabel.SetBinding(Label.TextProperty, nameof(Place.CategoryEmoji));
+                var emojiBadge = new Border
+                {
+                    BackgroundColor = Color.FromArgb("#CC0D1B2A"),
+                    StrokeShape = new RoundRectangle { CornerRadius = 12 },
+                    StrokeThickness = 0,
+                    Padding = new Thickness(8, 5),
                     HorizontalOptions = LayoutOptions.Start,
                     VerticalOptions = LayoutOptions.Start,
-                    Margin = new Thickness(10),
-                    HasShadow = false,
+                    Margin = new Thickness(12, 12, 0, 0),
                     Content = emojiLabel
                 };
 
-                // Название
-                var nameLabel = new Label
+                // Heart — top right
+                var heartFilled = new Label
                 {
-                    FontSize = 18,
-                    FontAttributes = FontAttributes.Bold
+                    Text = "❤️", FontSize = 24,
+                    HorizontalOptions = LayoutOptions.End,
+                    VerticalOptions = LayoutOptions.Start,
+                    Margin = new Thickness(0, 12, 14, 0)
                 };
-                nameLabel.SetAppThemeColor(Label.TextColorProperty,
-                    Color.FromArgb("#1A1A2E"), Colors.White);
-                nameLabel.SetBinding(Label.TextProperty, nameof(Place.Name));
+                heartFilled.SetBinding(Label.IsVisibleProperty, nameof(Place.IsFavorite));
+                var heartOutline = new Label
+                {
+                    Text = "🤍", FontSize = 24,
+                    HorizontalOptions = LayoutOptions.End,
+                    VerticalOptions = LayoutOptions.Start,
+                    Margin = new Thickness(0, 12, 14, 0)
+                };
 
-                // Описание
-                var descLabel = new Label
-                {
-                    FontSize = 13,
-                    TextColor = Colors.Gray,
-                    MaxLines = 2,
-                    LineBreakMode = LineBreakMode.TailTruncation
-                };
-                descLabel.SetBinding(Label.TextProperty, nameof(Place.Description));
-
-                // Кнопка «Добавить в избранное»
-                var addBtn = new Button
-                {
-                    Text = AppResources.AddToFavorites,
-                    BackgroundColor = Color.FromArgb("#E63946"),
-                    TextColor = Colors.White,
-                    CornerRadius = 10,
-                    FontSize = 13,
-                    HeightRequest = 40,
-                    Margin = new Thickness(0, 6, 0, 0)
-                };
-                addBtn.SetBinding(Button.CommandProperty,
-                    new Binding(nameof(ExploreViewModel.AddToFavoritesCommand),
+                var heartTap = new TapGestureRecognizer();
+                heartTap.SetBinding(TapGestureRecognizer.CommandProperty,
+                    new Binding(nameof(ExploreViewModel.ToggleFavoriteCommand),
                         source: new RelativeBindingSource(RelativeBindingSourceMode.FindAncestorBindingContext,
                             typeof(ExploreViewModel))));
-                addBtn.SetBinding(Button.CommandParameterProperty, ".");
+                heartTap.SetBinding(TapGestureRecognizer.CommandParameterProperty, ".");
 
-                var infoStack = new StackLayout
+                var heartGrid = new Grid
                 {
-                    Padding = new Thickness(16, 12, 16, 8),
-                    Spacing = 4,
-                    Children = { nameLabel, descLabel, addBtn }
+                    HorizontalOptions = LayoutOptions.End,
+                    VerticalOptions = LayoutOptions.Start
                 };
+                heartGrid.Children.Add(heartOutline);
+                heartGrid.Children.Add(heartFilled);
+                heartGrid.GestureRecognizers.Add(heartTap);
 
-                var innerGrid = new Grid
+                // Bottom overlay — name + button
+                var nameLabel = new Label
                 {
-                    RowDefinitions =
+                    FontSize = 20,
+                    FontAttributes = FontAttributes.Bold,
+                    TextColor = Colors.White,
+                    MaxLines = 1,
+                    LineBreakMode = LineBreakMode.TailTruncation
+                };
+                nameLabel.SetBinding(Label.TextProperty, nameof(Place.Name));
+
+                var detailsBtn = new Button
+                {
+                    Text = AppResources.ReadMore,
+                    FontSize = 13,
+                    BackgroundColor = ThemeService.Accent,
+                    TextColor = Colors.White,
+                    CornerRadius = 10,
+                    HeightRequest = 38,
+                    HorizontalOptions = LayoutOptions.Start,
+                    Padding = new Thickness(18, 0)
+                };
+                detailsBtn.Clicked += async (sender, _) =>
+                {
+                    if (sender is Button btn && btn.BindingContext is Place place)
                     {
-                        new RowDefinition { Height = new GridLength(220) },
-                        new RowDefinition { Height = GridLength.Star }
+                        _isPaused = true;
+                        await DisplayAlertAsync($"{place.CategoryEmoji} {place.Name}", place.Description, "OK");
+                        _isPaused = false;
                     }
                 };
-                Grid.SetRow(image, 0);
-                Grid.SetRow(emojiBadge, 0);
-                Grid.SetRow(infoStack, 1);
-                innerGrid.Children.Add(image);
-                innerGrid.Children.Add(emojiBadge);
-                innerGrid.Children.Add(infoStack);
 
-                return new Frame
+                var bottomOverlay = new VerticalStackLayout
+                {
+                    Padding = new Thickness(16, 12, 16, 18),
+                    Spacing = 10,
+                    VerticalOptions = LayoutOptions.End,
+                    Children = { nameLabel, detailsBtn }
+                };
+
+                // Compose card layers
+                var cardContent = new Grid();
+                cardContent.Children.Add(image);
+                cardContent.Children.Add(gradient);
+                cardContent.Children.Add(emojiBadge);
+                cardContent.Children.Add(heartGrid);
+                cardContent.Children.Add(bottomOverlay);
+
+                var card = new Border
                 {
                     Margin = new Thickness(8, 4),
-                    CornerRadius = 20,
-                    HasShadow = true,
+                    StrokeShape = new RoundRectangle { CornerRadius = 22 },
+                    StrokeThickness = 0,
+                    //ClipsToBounds = true,
+                    Shadow = new Shadow { Brush = Brush.Black, Opacity = 0.18f, Radius = 18, Offset = new Point(0, 5) },
                     Padding = 0,
-                    BorderColor = Colors.Transparent,
-                    Content = innerGrid
+                    Content = cardContent
                 };
+                card.SetAppThemeColor(Border.BackgroundColorProperty,
+                    ThemeService.CardLight, ThemeService.CardDark);
+                return card;
             });
         }
 
-        // ────────────────────────────────────────────────────────────────
-        //  DataTemplate для кнопки-эмодзи категории
-        // ────────────────────────────────────────────────────────────────
         private DataTemplate BuildCategoryTemplate()
         {
             return new DataTemplate(() =>
             {
                 var emojiLabel = new Label
                 {
-                    FontSize = 26,
+                    FontSize = 24,
                     HorizontalOptions = LayoutOptions.Center,
                     VerticalOptions = LayoutOptions.Center
                 };
                 emojiLabel.SetBinding(Label.TextProperty, nameof(Category.Emoji));
 
-                var frame = new Frame
+                var card = new Border
                 {
-                    CornerRadius = 14,
-                    Padding = 0,
-                    HasShadow = false,
-                    WidthRequest = 52,
-                    HeightRequest = 52,
+                    StrokeShape = new RoundRectangle { CornerRadius = 16 },
+                    StrokeThickness = 0,
+                    WidthRequest = 54,
+                    HeightRequest = 54,
+                    Shadow = new Shadow { Brush = Brush.Black, Opacity = 0.08f, Radius = 8, Offset = new Point(0, 2) },
                     Content = emojiLabel
                 };
-                frame.SetAppThemeColor(VisualElement.BackgroundColorProperty,
-                    Colors.White, Color.FromArgb("#2A2A2A"));
+                card.SetAppThemeColor(Border.BackgroundColorProperty,
+                    ThemeService.CardLight, ThemeService.CardDark);
 
                 var tap = new TapGestureRecognizer();
                 tap.SetBinding(TapGestureRecognizer.CommandProperty,
                     new Binding(nameof(ExploreViewModel.FilterCommand),
                         source: new RelativeBindingSource(RelativeBindingSourceMode.FindAncestorBindingContext,
                             typeof(ExploreViewModel))));
-                // ✅ Исправлено: строковый путь "Emoji" передаёт значение свойства,
-                //    а не его имя как литерал (что делал nameof)
-                tap.SetBinding(TapGestureRecognizer.CommandParameterProperty, "Emoji");
-                frame.GestureRecognizers.Add(tap);
-
-                return frame;
+                tap.SetBinding(TapGestureRecognizer.CommandParameterProperty, nameof(Category.Emoji));
+                card.GestureRecognizers.Add(tap);
+                return card;
             });
         }
 
-        // ────────────────────────────────────────────────────────────────
-        //  Lifecycle – загрузка данных при появлении страницы
-        // ────────────────────────────────────────────────────────────────
-        protected override async void OnAppearing()
+        // ── Language reload ─────────────────────────────────────────────────
+        protected override void OnAppearing()
         {
             base.OnAppearing();
-            if (_viewModel != null)
-                // ✅ Исправлено: убрано бессмысленное присвоение `object valuesult =`
-                await _viewModel.LoadPlacesAsync();
+            LanguageEvents.LanguageChanged += OnLanguageChanged;
+            if (GetCurrentCulture() != _lastBuiltCulture)
+                BuildUI();
+            if (_viewModel is null) return;
+            _ = _viewModel.LoadPlacesAsync();
         }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            LanguageEvents.LanguageChanged -= OnLanguageChanged;
+        }
+
+        private void OnLanguageChanged() => MainThread.BeginInvokeOnMainThread(BuildUI);
     }
 }

@@ -118,69 +118,204 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ExploreTab" xml:space="preserve">
-    <value>-</value>
+    <value>Исследовать</value>
   </data>
   <data name="FavoritesTab" xml:space="preserve">
-    <value>-</value>
+    <value>Избранное</value>
   </data>
   <data name="SettingsTab" xml:space="preserve">
-    <value>-</value>
+    <value>Настройки</value>
+  </data>
+  <data name="AdminTab" xml:space="preserve">
+    <value>Админ</value>
   </data>
   <data name="ExploreTitle" xml:space="preserve">
-    <value>-</value>
+    <value>Исследуй Таллин</value>
   </data>
   <data name="FavoritesTitle" xml:space="preserve">
-    <value>-</value>
+    <value>Мои Избранные</value>
   </data>
   <data name="SettingsTitle" xml:space="preserve">
-    <value>-</value>
+    <value>Настройки</value>
+  </data>
+  <data name="AdminTitle" xml:space="preserve">
+    <value>Управление</value>
   </data>
   <data name="AddToFavorites" xml:space="preserve">
-    <value>-</value>
+    <value>В избранное ❤️</value>
   </data>
   <data name="NoFavorites" xml:space="preserve">
-    <value>--</value>
+    <value>Нет избранных мест. Исследуй город!</value>
   </data>
   <data name="SelectLanguage" xml:space="preserve">
-    <value>-</value>
+    <value>Выберите язык:</value>
+  </data>
+  <data name="ActiveLanguage" xml:space="preserve">
+    <value>Активный язык:</value>
   </data>
   <data name="LanguageChanged" xml:space="preserve">
-    <value>--</value>
+    <value>Язык изменён. Некоторые тексты обновятся после перезапуска.</value>
   </data>
   <data name="AdminError" xml:space="preserve">
-    <value>-</value>
+    <value>Ошибка сохранения данных</value>
   </data>
   <data name="OK" xml:space="preserve">
-    <value>-</value>
+    <value>OK</value>
   </data>
   <data name="AdminSaved" xml:space="preserve">
-    <value>-</value>
+    <value>Место сохранено!</value>
   </data>
   <data name="DeleteFavorite" xml:space="preserve">
-    <value>--</value>
+    <value>Удалить из избранного</value>
   </data>
   <data name="DeleteConfirm" xml:space="preserve">
-    <value>--</value>
+    <value>Удалить это место из избранного?</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>-</value>
+    <value>Да</value>
   </data>
   <data name="No" xml:space="preserve">
-    <value>-</value>
+    <value>Нет</value>
   </data>
   <data name="AddedToFavorites" xml:space="preserve">
-    <value>-</value>
+    <value>Добавлено в избранное</value>
   </data>
   <data name="AddedMessage" xml:space="preserve">
-    <value>-</value>
+    <value>Место добавлено в ваше избранное!</value>
   </data>
-  <data name="CurrentTheme" xml:space="preserve">
-    <value>-</value>
+  <data name="AdminPlaceName" xml:space="preserve">
+    <value>Название места</value>
   </data>
-  <data name="ApplyTheme" xml:space="preserve">
-    <value>-</value>
+  <data name="AdminDescription" xml:space="preserve">
+    <value>Описание</value>
   </data>
-  <data name="ThemeChanged" xml:space="preserve">
-    <value>-</value>
+  <data name="AdminImageUrl" xml:space="preserve">
+    <value>URL изображения</value>
+  </data>
+  <data name="AdminCategory" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="AdminSaveButton" xml:space="preserve">
+    <value>Сохранить место</value>
+  </data>
+  <data name="AdminNoPlaces" xml:space="preserve">
+    <value>Мест не добавлено</value>
+  </data>
+  <data name="seaded" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="DarkTheme" xml:space="preserve">
+    <value>Тёмная тема</value>
+  </data>
+  <data name="DarkThemeHint" xml:space="preserve">
+    <value>Включить/выключить тёмный режим</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="LanguageHint" xml:space="preserve">
+    <value>Выберите язык приложения</value>
+  </data>
+  <data name="ReadMore" xml:space="preserve">
+    <value>Подробнее</value>
+  </data>
+  <data name="FavoriteBadge" xml:space="preserve">
+    <value>❤️ В избранном</value>
+  </data>
+  <data name="SavedCount" xml:space="preserve">
+    <value>мест в избранном</value>
+  </data>
+  <data name="AboutApp" xml:space="preserve">
+    <value>City Explorer · Таллин v1.0</value>
+  </data>
+  <data name="ClearForm" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="AddNewPlace" xml:space="preserve">
+    <value>Добавление места</value>
+  </data>
+  <data name="AllPlaces" xml:space="preserve">
+    <value>Все места</value>
+  </data>
+  <data name="FromGallery" xml:space="preserve">
+    <value>Из галереи</value>
+  </data>
+  <data name="EmptyDatabase" xml:space="preserve">
+    <value>Мест не добавлено</value>
+  </data>
+  <data name="PlaceAdded" xml:space="preserve">
+    <value>Место сохранено!</value>
+  </data>
+  <data name="PlaceUpdated" xml:space="preserve">
+    <value>Место обновлено!</value>
+  </data>
+  <data name="EditPlace" xml:space="preserve">
+    <value>Редактирование</value>
+  </data>
+  <data name="NameDescLabel" xml:space="preserve">
+    <value>Название и описание</value>
+  </data>
+  <data name="PhotoLabel" xml:space="preserve">
+    <value>Фото</value>
+  </data>
+  <data name="CategoryLabel" xml:space="preserve">
+    <value>Категория</value>
+  </data>
+  <data name="CatHistory" xml:space="preserve">
+    <value>История</value>
+  </data>
+  <data name="CatParks" xml:space="preserve">
+    <value>Парки</value>
+  </data>
+  <data name="CatFood" xml:space="preserve">
+    <value>Еда</value>
+  </data>
+  <data name="CatCulture" xml:space="preserve">
+    <value>Культура</value>
+  </data>
+  <data name="CatShopping" xml:space="preserve">
+    <value>Шопинг</value>
+  </data>
+  <data name="CatChurches" xml:space="preserve">
+    <value>Церкви</value>
+  </data>
+  <data name="CatAll" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="PlaceName" xml:space="preserve">
+    <value>Название места</value>
+  </data>
+  <data name="ShortDescription" xml:space="preserve">
+    <value>Краткое описание</value>
+  </data>
+  <data name="ImageUrlHint" xml:space="preserve">
+    <value>URL или имя файла</value>
+  </data>
+  <data name="SelectCategory" xml:space="preserve">
+    <value>Выберите категорию</value>
+  </data>
+  <data name="EditingPlace" xml:space="preserve">
+    <value>Редактируете место:</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Сохранить изменения</value>
+  </data>
+  <data name="DeletePlace" xml:space="preserve">
+    <value>Удалить место</value>
+  </data>
+  <data name="DeletePlaceConfirm" xml:space="preserve">
+    <value>Удалить место</value>
+  </data>
+  <data name="PlacesInDb" xml:space="preserve">
+    <value>Мест в базе данных:</value>
+  </data>
+  <data name="ValidationNameMissing" xml:space="preserve">
+    <value>Введите название места.</value>
+  </data>
+  <data name="ValidationDescMissing" xml:space="preserve">
+    <value>Введите описание.</value>
+  </data>
+  <data name="CitySubtitle" xml:space="preserve">
+    <value>🇪🇪 Таллин</value>
   </data>
 </root>

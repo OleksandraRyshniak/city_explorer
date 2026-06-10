@@ -4,10 +4,26 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:views="clr-namespace:CityExplorer.Views"
+    xmlns:strings="clr-namespace:CityExplorer.Resources.Localization"
+    Shell.TabBarBackgroundColor="{StaticResource NavBar}"
+    Shell.TabBarTitleColor="White"
+    Shell.TabBarUnselectedColor="#888888"
+    Shell.TabBarForegroundColor="{StaticResource Accent}"
     Title="CityExplorer">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate views:MainTabbedPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="{x:Static strings:AppResources.ExploreTab}">
+            <ShellContent ContentTemplate="{DataTemplate views:ExplorePage}" Route="ExplorePage" />
+        </Tab>
+        <Tab Title="{x:Static strings:AppResources.FavoritesTab}">
+            <ShellContent ContentTemplate="{DataTemplate views:FavoritesPage}" Route="FavoritesPage" />
+        </Tab>
+        <Tab Title="{x:Static strings:AppResources.SettingsTab}">
+            <ShellContent ContentTemplate="{DataTemplate views:SettingsPage}" Route="SettingsPage" />
+        </Tab>
+        <Tab Title="{x:Static strings:AppResources.AdminTab}">
+            <ShellContent ContentTemplate="{DataTemplate views:AdminPage}" Route="AdminPage" />
+        </Tab>
+    </TabBar>
+
 </Shell>

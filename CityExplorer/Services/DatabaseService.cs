@@ -13,7 +13,7 @@ public class DatabaseService
     private const string DatabaseFilename = "cityexplorer.db3";
 
     private static string DatabasePath =>
-        Path.Combine(FileSystem.AppDataDirectory, DatabaseFilename);
+        System.IO.Path.Combine(FileSystem.AppDataDirectory, DatabaseFilename);
 
     /// <summary>
     /// Lähtestab andmebaasi ühenduse ja loob tabelid (kui neid veel pole).

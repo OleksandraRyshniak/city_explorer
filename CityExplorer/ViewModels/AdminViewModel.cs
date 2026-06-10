@@ -49,11 +49,11 @@ public class AdminViewModel : BaseViewModel
 
     public ObservableCollection<Category> Categories { get; } =
     [
-        new() { Emoji = "🏰", Title = "Ajalugu" },
-        new() { Emoji = "🌳", Title = "Pargid" },
-        new() { Emoji = "🍽️", Title = "Toidukohad" },
-        new() { Emoji = "🎭", Title = "Kultuur" },
-        new() { Emoji = "⛪", Title = "Kirikud" },
+        new() { Emoji = "🏰", Title = AppResources.CatHistory },
+        new() { Emoji = "🌳", Title = AppResources.CatParks },
+        new() { Emoji = "🍽️", Title = AppResources.CatFood },
+        new() { Emoji = "🎭", Title = AppResources.CatCulture },
+        new() { Emoji = "⛪", Title = AppResources.CatChurches },
     ];
 
     // ── Käsud ─────────────────────────────────────────────────
@@ -87,7 +87,7 @@ public class AdminViewModel : BaseViewModel
             string.IsNullOrWhiteSpace(Description) ||
             string.IsNullOrWhiteSpace(ImageUrl))
         {
-            await Application.Current!.MainPage!.DisplayAlert(
+            await Application.Current!.MainPage!.DisplayAlertAsync(
                 "❌",
                 AppResources.AdminError,
                 AppResources.OK);
@@ -114,7 +114,7 @@ public class AdminViewModel : BaseViewModel
         // Uuendame nimekirja
         await LoadAllPlacesAsync();
 
-        await Application.Current!.MainPage!.DisplayAlert(
+        await Application.Current!.MainPage!.DisplayAlertAsync(
             "✅",
             AppResources.AdminSaved,
             AppResources.OK);
@@ -122,7 +122,7 @@ public class AdminViewModel : BaseViewModel
 
     private async Task DeletePlaceAsync(Place place)
     {
-        bool confirm = await Application.Current!.MainPage!.DisplayAlert(
+        bool confirm = await Application.Current!.MainPage!.DisplayAlertAsync(
             AppResources.DeleteFavorite,
             $"\"{place.Name}\" {AppResources.DeleteConfirm}",
             AppResources.Yes,

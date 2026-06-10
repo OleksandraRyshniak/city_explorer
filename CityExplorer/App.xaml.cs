@@ -1,16 +1,23 @@
-﻿using CityExplorer.Views;
+﻿using CityExplorer.Services;
 
 namespace CityExplorer;
 
-/// <summary>
-/// Rakenduse käivituspunkt.
-/// MainTabbedPage on seatud peale leheküljeks (DI kaudu).
-/// </summary>
 public partial class App : Application
 {
-    public App(MainTabbedPage mainPage)
+    public App()
     {
         InitializeComponent();
-        MainPage = mainPage;
+
+        // ✅ Восстанавливаем тему и dark mode при каждом запуске
+        ThemeService.RakendaSalvestatud();
+
+        // ✅ Восстанавливаем язык при каждом запуске
+        var savedLang = Preferences.Get("app_language", "et");
+        var ci = new System.Globalization.CultureInfo(savedLang);
+        System.Threading.Thread.CurrentThread.CurrentCulture = ci;
+        System.Threading.Thread.CurrentThread.CurrentUICulture = ci;
+        CityExplorer.Resources.Localization.AppResources.Culture = ci;
+
+        MainPage = new AppShell();
     }
 }

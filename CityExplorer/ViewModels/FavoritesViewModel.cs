@@ -8,12 +8,11 @@ namespace CityExplorer.ViewModels;
 
 /// <summary>
 /// ViewModel 2. vahekaardile "Lemmikud".
-/// Laeb SQLite andmebaasist lemmikud ja võimaldab neid kustutada (CRUD - Delete).
 /// </summary>
 public class FavoritesViewModel : BaseViewModel
 {
     private readonly DatabaseService _databaseService;
-    private ObservableCollection<Place> _favorites = new ObservableCollection<Place>();
+    private ObservableCollection<Place> _favorites = [];
 
     public ObservableCollection<Place> Favorites
     {
@@ -40,7 +39,7 @@ public class FavoritesViewModel : BaseViewModel
 
     private async Task RemoveFavoriteAsync(Place place)
     {
-        bool confirm = await Application.Current!.MainPage!.DisplayAlert(
+        bool confirm = await Application.Current!.MainPage!.DisplayAlertAsync(
             AppResources.DeleteFavorite,
             $"\"{place.Name}\" {AppResources.DeleteConfirm}",
             AppResources.Yes,
@@ -48,7 +47,9 @@ public class FavoritesViewModel : BaseViewModel
 
         if (!confirm) return;
 
-        await _databaseService.DeletePlaceAsync(place);
+        place.IsFavorite = false;
+        await _databaseService.SavePlaceAsync(place);
+
         Favorites.Remove(place);
     }
 }

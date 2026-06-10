@@ -5,14 +5,9 @@ using CityExplorer.Services;
 
 namespace CityExplorer.ViewModels;
 
-/// <summary>
-/// ViewModel 3. vahekaardile "Seaded".
-/// Haldab keele vahetamist (.resx failid) ja teema vahetamist (ThemeService).
-/// </summary>
 public class SettingsViewModel : BaseViewModel
 {
-    private string _currentLanguage = "et";
-    private string _currentTheme = "Navy";
+    private string _currentLanguage;
 
     public string CurrentLanguage
     {
@@ -20,22 +15,23 @@ public class SettingsViewModel : BaseViewModel
         set => SetProperty(ref _currentLanguage, value);
     }
 
-    public string CurrentTheme
+    // Dark mode — напрямую через ThemeService
+    public bool IsDarkMode
     {
-        get => _currentTheme;
-        set => SetProperty(ref _currentTheme, value);
+        get => ThemeService.OnTumedTeema;
+        set
+        {
+            ThemeService.OnTumedTeema = value;
+            OnPropertyChanged();
+        }
     }
 
     public ICommand ChangeLanguageCommand { get; }
-    public ICommand ChangeThemeCommand { get; }
 
     public SettingsViewModel()
     {
+        _currentLanguage = Preferences.Get("app_language", "et");
         ChangeLanguageCommand = new Command<string>(ChangeLanguage);
-        ChangeThemeCommand = new Command<string>(ChangeTheme);
-
-        // Sünkroniseerime aktiivse teema
-        CurrentTheme = ThemeService.CurrentTheme ;
     }
 
     private void ChangeLanguage(string languageCode)
@@ -46,21 +42,6 @@ public class SettingsViewModel : BaseViewModel
         CultureInfo.CurrentCulture = culture;
         CultureInfo.CurrentUICulture = culture;
         AppResources.Culture = culture;
-
-        Application.Current?.MainPage?.DisplayAlert(
-            AppResources.SettingsTitle,
-            AppResources.LanguageChanged,
-            AppResources.OK);
-    }
-
-    private void ChangeTheme(string themeName)
-    {
-        CurrentTheme = themeName;
-        ThemeService.ApplyTheme(themeName);
-
-        Application.Current?.MainPage?.DisplayAlert(
-            AppResources.SettingsTitle,
-            AppResources.ThemeChanged,
-            AppResources.OK);
+        Preferences.Set("app_language", languageCode);
     }
 }

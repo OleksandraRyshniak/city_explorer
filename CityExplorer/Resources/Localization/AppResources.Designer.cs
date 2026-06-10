@@ -141,6 +141,104 @@ namespace CityExplorer.Resources.Localization {
             }
         }
         
+        internal static string AdminTab {
+            get { return ResourceManager.GetString("AdminTab", resourceCulture); }
+        }
+
+        internal static string DarkTheme {
+            get { return ResourceManager.GetString("DarkTheme", resourceCulture); }
+        }
+
+        internal static string DarkThemeHint {
+            get { return ResourceManager.GetString("DarkThemeHint", resourceCulture); }
+        }
+
+        internal static string Language {
+            get { return ResourceManager.GetString("Language", resourceCulture); }
+        }
+
+        internal static string LanguageHint {
+            get { return ResourceManager.GetString("LanguageHint", resourceCulture); }
+        }
+
+        internal static string ReadMore {
+            get { return ResourceManager.GetString("ReadMore", resourceCulture); }
+        }
+
+        internal static string FavoriteBadge {
+            get { return ResourceManager.GetString("FavoriteBadge", resourceCulture); }
+        }
+
+        internal static string SavedCount {
+            get { return ResourceManager.GetString("SavedCount", resourceCulture); }
+        }
+
+        internal static string AboutApp {
+            get { return ResourceManager.GetString("AboutApp", resourceCulture); }
+        }
+        internal static string ClearForm { get { return ResourceManager.GetString("ClearForm", resourceCulture); } }
+        internal static string AddNewPlace { get { return ResourceManager.GetString("AddNewPlace", resourceCulture); } }
+        internal static string AllPlaces { get { return ResourceManager.GetString("AllPlaces", resourceCulture); } }
+        internal static string FromGallery { get { return ResourceManager.GetString("FromGallery", resourceCulture); } }
+        internal static string EmptyDatabase { get { return ResourceManager.GetString("EmptyDatabase", resourceCulture); } }
+        internal static string PlaceAdded { get { return ResourceManager.GetString("PlaceAdded", resourceCulture); } }
+        internal static string PlaceUpdated { get { return ResourceManager.GetString("PlaceUpdated", resourceCulture); } }
+        internal static string EditPlace { get { return ResourceManager.GetString("EditPlace", resourceCulture); } }
+        internal static string NameDescLabel { get { return ResourceManager.GetString("NameDescLabel", resourceCulture); } }
+        internal static string PhotoLabel { get { return ResourceManager.GetString("PhotoLabel", resourceCulture); } }
+        internal static string CategoryLabel { get { return ResourceManager.GetString("CategoryLabel", resourceCulture); } }
+        internal static string CatHistory { get { return ResourceManager.GetString("CatHistory", resourceCulture); } }
+        internal static string CatParks { get { return ResourceManager.GetString("CatParks", resourceCulture); } }
+        internal static string CatFood { get { return ResourceManager.GetString("CatFood", resourceCulture); } }
+        internal static string CatCulture { get { return ResourceManager.GetString("CatCulture", resourceCulture); } }
+        internal static string CatShopping { get { return ResourceManager.GetString("CatShopping", resourceCulture); } }
+        internal static string CatChurches { get { return ResourceManager.GetString("CatChurches", resourceCulture); } }
+        internal static string CatAll { get { return ResourceManager.GetString("CatAll", resourceCulture); } }
+        internal static string PlaceName { get { return ResourceManager.GetString("PlaceName", resourceCulture); } }
+        internal static string ShortDescription { get { return ResourceManager.GetString("ShortDescription", resourceCulture); } }
+        internal static string ImageUrlHint { get { return ResourceManager.GetString("ImageUrlHint", resourceCulture); } }
+        internal static string SelectCategory { get { return ResourceManager.GetString("SelectCategory", resourceCulture); } }
+        internal static string EditingPlace { get { return ResourceManager.GetString("EditingPlace", resourceCulture); } }
+        internal static string SaveChanges { get { return ResourceManager.GetString("SaveChanges", resourceCulture); } }
+        internal static string DeletePlace { get { return ResourceManager.GetString("DeletePlace", resourceCulture); } }
+        internal static string DeletePlaceConfirm { get { return ResourceManager.GetString("DeletePlaceConfirm", resourceCulture); } }
+        internal static string PlacesInDb { get { return ResourceManager.GetString("PlacesInDb", resourceCulture); } }
+        internal static string ValidationNameMissing { get { return ResourceManager.GetString("ValidationNameMissing", resourceCulture); } }
+        internal static string ValidationDescMissing { get { return ResourceManager.GetString("ValidationDescMissing", resourceCulture); } }
+        internal static string CitySubtitle { get { return ResourceManager.GetString("CitySubtitle", resourceCulture); } }
+
+        internal static string AdminTitle {
+            get { return ResourceManager.GetString("AdminTitle", resourceCulture); }
+        }
+
+        internal static string ActiveLanguage {
+            get { return ResourceManager.GetString("ActiveLanguage", resourceCulture); }
+        }
+
+        internal static string AdminPlaceName {
+            get { return ResourceManager.GetString("AdminPlaceName", resourceCulture); }
+        }
+
+        internal static string AdminDescription {
+            get { return ResourceManager.GetString("AdminDescription", resourceCulture); }
+        }
+
+        internal static string AdminImageUrl {
+            get { return ResourceManager.GetString("AdminImageUrl", resourceCulture); }
+        }
+
+        internal static string AdminCategory {
+            get { return ResourceManager.GetString("AdminCategory", resourceCulture); }
+        }
+
+        internal static string AdminSaveButton {
+            get { return ResourceManager.GetString("AdminSaveButton", resourceCulture); }
+        }
+
+        internal static string AdminNoPlaces {
+            get { return ResourceManager.GetString("AdminNoPlaces", resourceCulture); }
+        }
+
         /// <summary>
         ///   Ищет локализованную строку, похожую на Avasta.
         /// </summary>
@@ -210,6 +308,15 @@ namespace CityExplorer.Resources.Localization {
         internal static string OK {
             get {
                 return ResourceManager.GetString("OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Seaded.
+        /// </summary>
+        internal static string seaded {
+            get {
+                return ResourceManager.GetString("seaded", resourceCulture);
             }
         }
         
