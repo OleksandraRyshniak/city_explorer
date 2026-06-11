@@ -13,6 +13,7 @@ namespace CityExplorer.Views
         private CarouselView _carousel = null!;
         private int _position = 0;
         private bool _isPaused = false;
+        private bool _timerStarted = false;
         private string _lastBuiltCulture = "";
 
         public ExplorePage(ExploreViewModel viewModel)
@@ -23,7 +24,11 @@ namespace CityExplorer.Views
             BuildUI();
         }
 
-        public ExplorePage() { Shell.SetNavBarIsVisible(this, false); BuildUI(); }
+        public ExplorePage()
+        {
+            Shell.SetNavBarIsVisible(this, false);
+            BuildUI();
+        }
 
         private static string GetCurrentCulture() =>
             AppResources.Culture?.Name
@@ -35,11 +40,11 @@ namespace CityExplorer.Views
             this.SetAppThemeColor(BackgroundColorProperty,
                 Color.FromArgb("#F0F4FF"), ThemeService.SurfaceDark);
 
-            // ── Header ─────────────────────────────────────────────────────
+            // ── Header ──────────────────────────────────────────────
             var titleLbl = new Label
             {
                 Text = AppResources.ExploreTitle,
-                FontSize = 30,
+                FontSize = 28,
                 FontAttributes = FontAttributes.Bold,
                 TextColor = Colors.White
             };
@@ -52,120 +57,118 @@ namespace CityExplorer.Views
 
             var header = new VerticalStackLayout
             {
-                Padding = new Thickness(20, 52, 20, 20),
+                Padding = new Thickness(20, 48, 20, 16),
                 Spacing = 4,
                 Children = { titleLbl, subtitleLbl }
             };
             header.SetAppThemeColor(BackgroundColorProperty,
                 Color.FromArgb("#0D1B2A"), Color.FromArgb("#050A10"));
 
-            // ── IndicatorView ───────────────────────────────────────────────
+            // ── Категории: горизонтальная строка ────────────────────
+            var catCollection = new CollectionView
+            {
+                ItemsLayout = new LinearItemsLayout(ItemsLayoutOrientation.Horizontal)
+                {
+                    ItemSpacing = 10
+                },
+                ItemTemplate = BuildCategoryTemplate(),
+                HeightRequest = 64,
+                Margin = new Thickness(16, 12, 16, 0),
+                HorizontalScrollBarVisibility = ScrollBarVisibility.Never,
+                MaximumWidthRequest = 480,
+                HorizontalOptions = LayoutOptions.Center
+            };
+            catCollection.SetBinding(ItemsView.ItemsSourceProperty,
+                nameof(ExploreViewModel.Categories));
+
+            // ── IndicatorView ───────────────────────────────────────
             var indicator = new IndicatorView
             {
                 IndicatorSize = 8,
                 SelectedIndicatorColor = ThemeService.Accent,
                 HorizontalOptions = LayoutOptions.Center,
-                Margin = new Thickness(0, 8, 0, 0)
+                Margin = new Thickness(0, 6, 0, 0)
             };
             indicator.SetAppThemeColor(IndicatorView.IndicatorColorProperty,
                 Color.FromArgb("#CBD5E1"), Color.FromArgb("#334155"));
 
-            // ── CarouselView ────────────────────────────────────────────────
+            // ── CarouselView ────────────────────────────────────────
             _carousel = new CarouselView
             {
                 IndicatorView = indicator,
-                Loop = true,
-                HeightRequest = 380,
-                PeekAreaInsets = new Thickness(20)
+                Loop = false,
+                HeightRequest = 400,
+                WidthRequest =300,
+                PeekAreaInsets = new Thickness(0),
+                Margin = new Thickness(0, 4, 0, 0),
+                MaximumWidthRequest = 480,
+                HorizontalOptions = LayoutOptions.Center
             };
-            _carousel.SetBinding(ItemsView.ItemsSourceProperty, nameof(ExploreViewModel.Places));
+            _carousel.SetBinding(ItemsView.ItemsSourceProperty,
+                nameof(ExploreViewModel.Places));
             _carousel.ItemTemplate = BuildCarouselTemplate();
 
-            Dispatcher.StartTimer(TimeSpan.FromSeconds(4), () =>
+            
+            _carousel.PositionChanged += (_, e) => _position = e.CurrentPosition;
+
+            if (!_timerStarted)
             {
-                if (_carousel?.ItemsSource is not System.Collections.IList list || list.Count == 0)
+                _timerStarted = true;
+                Dispatcher.StartTimer(TimeSpan.FromSeconds(4), () =>
+                {
+                    if (_carousel?.ItemsSource is not System.Collections.IList list || list.Count == 0)
+                        return true;
+                    if (!_isPaused && !_carousel.IsDragging)   // ← пауза пока пользователь тянет пальцем
+                    {
+                        _position = (_position + 1) % list.Count;
+                        _carousel.ScrollTo(_position,
+                            position: ScrollToPosition.Center, animate: true);
+                    }
                     return true;
-                if (!_isPaused)
-                {
-                    _position = (_position + 1) % list.Count;
-                    _carousel.Position = _position;
-                }
-                return true;
-            });
-
-            // ── Category sidebar ────────────────────────────────────────────
-            var catCollection = new CollectionView
-            {
-                ItemsLayout = new LinearItemsLayout(ItemsLayoutOrientation.Vertical) { ItemSpacing = 8 },
-                ItemTemplate = BuildCategoryTemplate()
-            };
-            catCollection.SetBinding(ItemsView.ItemsSourceProperty, nameof(ExploreViewModel.Categories));
-
-            var catScroll = new ScrollView
-            {
-                Orientation = ScrollOrientation.Vertical,
-                VerticalScrollBarVisibility = ScrollBarVisibility.Never,
-                Content = new VerticalStackLayout
-                {
-                    Padding = new Thickness(6, 10),
-                    Spacing = 0,
-                    Children = { catCollection }
-                }
-            };
-
-            var contentGrid = new Grid
-            {
-                Margin = new Thickness(0, 10, 0, 0),
-                ColumnDefinitions =
-                {
-                    new ColumnDefinition { Width = GridLength.Star },
-                    new ColumnDefinition { Width = new GridLength(66) }
-                }
-            };
-            var carouselStack = new StackLayout { Children = { _carousel, indicator } };
-            Grid.SetColumn(carouselStack, 0);
-            Grid.SetColumn(catScroll, 1);
-            contentGrid.Children.Add(carouselStack);
-            contentGrid.Children.Add(catScroll);
-
+                });
+            }
+            // ── Корневой layout ─────────────────────────────────────
             var root = new Grid
             {
-                Padding = new Thickness(0, 0, 0, 10),
                 RowDefinitions =
                 {
-                    new RowDefinition { Height = GridLength.Auto },
-                    new RowDefinition { Height = GridLength.Star }
-                }
+                    new RowDefinition { Height = GridLength.Auto }, // header
+                    new RowDefinition { Height = GridLength.Auto }, // категории
+                    new RowDefinition { Height = GridLength.Star }, // карусель
+                    new RowDefinition { Height = GridLength.Auto }  // индикатор
+                },
+                Padding = new Thickness(0, 0, 0, 12)
             };
-            Grid.SetRow(header, 0);
-            Grid.SetRow(contentGrid, 1);
-            root.Children.Add(header);
-            root.Children.Add(contentGrid);
+            root.Add(header, 0, 0);
+            root.Add(catCollection, 0, 1);
+            root.Add(_carousel, 0, 2);
+            root.Add(indicator, 0, 3);
 
             Content = root;
         }
 
+        // ── Шаблон карточки карусели ────────────────────────────────
         private DataTemplate BuildCarouselTemplate()
         {
             return new DataTemplate(() =>
             {
-                // Full-bleed image
                 var image = new Image { Aspect = Aspect.AspectFill };
                 image.SetBinding(Image.SourceProperty, nameof(Place.ImageUrl));
 
-                // Gradient overlay (bottom)
+                // Градиент снизу — чтобы текст читался
                 var gradient = new BoxView
                 {
                     Background = new LinearGradientBrush(
                         new GradientStopCollection
                         {
-                            new GradientStop(Colors.Transparent, 0f),
-                            new GradientStop(Color.FromArgb("#E0000000"), 1f)
+                            new GradientStop(Colors.Transparent, 0.4f),
+                            new GradientStop(Color.FromArgb("#D9000000"), 1f)
                         },
-                        new Point(0, 0), new Point(0, 1))
+                        new Point(0, 0), new Point(0, 1)),
+                    InputTransparent = true
                 };
 
-                // Category badge — top left
+                // Бейдж категории — слева сверху
                 var emojiLabel = new Label { FontSize = 20 };
                 emojiLabel.SetBinding(Label.TextProperty, nameof(Place.CategoryEmoji));
                 var emojiBadge = new Border
@@ -180,40 +183,31 @@ namespace CityExplorer.Views
                     Content = emojiLabel
                 };
 
-                // Heart — top right
-                var heartFilled = new Label
-                {
-                    Text = "❤️", FontSize = 24,
-                    HorizontalOptions = LayoutOptions.End,
-                    VerticalOptions = LayoutOptions.Start,
-                    Margin = new Thickness(0, 12, 14, 0)
-                };
+                // Сердечко — справа сверху
+                var heartFilled = new Label { Text = "❤️", FontSize = 24 };
                 heartFilled.SetBinding(Label.IsVisibleProperty, nameof(Place.IsFavorite));
-                var heartOutline = new Label
-                {
-                    Text = "🤍", FontSize = 24,
-                    HorizontalOptions = LayoutOptions.End,
-                    VerticalOptions = LayoutOptions.Start,
-                    Margin = new Thickness(0, 12, 14, 0)
-                };
+                var heartOutline = new Label { Text = "🤍", FontSize = 24 };
 
                 var heartTap = new TapGestureRecognizer();
                 heartTap.SetBinding(TapGestureRecognizer.CommandProperty,
                     new Binding(nameof(ExploreViewModel.ToggleFavoriteCommand),
-                        source: new RelativeBindingSource(RelativeBindingSourceMode.FindAncestorBindingContext,
+                        source: new RelativeBindingSource(
+                            RelativeBindingSourceMode.FindAncestorBindingContext,
                             typeof(ExploreViewModel))));
                 heartTap.SetBinding(TapGestureRecognizer.CommandParameterProperty, ".");
 
                 var heartGrid = new Grid
                 {
                     HorizontalOptions = LayoutOptions.End,
-                    VerticalOptions = LayoutOptions.Start
+                    VerticalOptions = LayoutOptions.Start,
+                    Margin = new Thickness(0, 12, 14, 0),
+                    Padding = new Thickness(6) // увеличивает зону нажатия
                 };
                 heartGrid.Children.Add(heartOutline);
                 heartGrid.Children.Add(heartFilled);
                 heartGrid.GestureRecognizers.Add(heartTap);
 
-                // Bottom overlay — name + button
+                // Название + кнопка — снизу
                 var nameLabel = new Label
                 {
                     FontSize = 20,
@@ -240,7 +234,8 @@ namespace CityExplorer.Views
                     if (sender is Button btn && btn.BindingContext is Place place)
                     {
                         _isPaused = true;
-                        await DisplayAlertAsync($"{place.CategoryEmoji} {place.Name}", place.Description, "OK");
+                        await DisplayAlert($"{place.CategoryEmoji} {place.Name}",
+                            place.Description, "OK");
                         _isPaused = false;
                     }
                 };
@@ -253,7 +248,7 @@ namespace CityExplorer.Views
                     Children = { nameLabel, detailsBtn }
                 };
 
-                // Compose card layers
+                // Слои карточки
                 var cardContent = new Grid();
                 cardContent.Children.Add(image);
                 cardContent.Children.Add(gradient);
@@ -263,20 +258,26 @@ namespace CityExplorer.Views
 
                 var card = new Border
                 {
-                    Margin = new Thickness(8, 4),
+                    Margin = new Thickness(16, 4),
                     StrokeShape = new RoundRectangle { CornerRadius = 22 },
                     StrokeThickness = 0,
-                    //ClipsToBounds = true,
-                    Shadow = new Shadow { Brush = Brush.Black, Opacity = 0.18f, Radius = 18, Offset = new Point(0, 5) },
+                    // Если картинка не загрузится — тёмный фон вместо серого
+                    BackgroundColor = Color.FromArgb("#1B2A3D"),
+                    Shadow = new Shadow
+                    {
+                        Brush = Brush.Black,
+                        Opacity = 0.18f,
+                        Radius = 14,
+                        Offset = new Point(0, 4)
+                    },
                     Padding = 0,
                     Content = cardContent
                 };
-                card.SetAppThemeColor(Border.BackgroundColorProperty,
-                    ThemeService.CardLight, ThemeService.CardDark);
                 return card;
             });
         }
 
+        // ── Шаблон категории ────────────────────────────────────────
         private DataTemplate BuildCategoryTemplate()
         {
             return new DataTemplate(() =>
@@ -295,7 +296,6 @@ namespace CityExplorer.Views
                     StrokeThickness = 0,
                     WidthRequest = 54,
                     HeightRequest = 54,
-                    Shadow = new Shadow { Brush = Brush.Black, Opacity = 0.08f, Radius = 8, Offset = new Point(0, 2) },
                     Content = emojiLabel
                 };
                 card.SetAppThemeColor(Border.BackgroundColorProperty,
@@ -304,16 +304,19 @@ namespace CityExplorer.Views
                 var tap = new TapGestureRecognizer();
                 tap.SetBinding(TapGestureRecognizer.CommandProperty,
                     new Binding(nameof(ExploreViewModel.FilterCommand),
-                        source: new RelativeBindingSource(RelativeBindingSourceMode.FindAncestorBindingContext,
+                        source: new RelativeBindingSource(
+                            RelativeBindingSourceMode.FindAncestorBindingContext,
                             typeof(ExploreViewModel))));
-                tap.SetBinding(TapGestureRecognizer.CommandParameterProperty, nameof(Category.Emoji));
+                tap.SetBinding(TapGestureRecognizer.CommandParameterProperty,
+                    nameof(Category.Emoji));
                 card.GestureRecognizers.Add(tap);
                 return card;
             });
         }
 
-        // ── Language reload ─────────────────────────────────────────────────
-        protected override void OnAppearing()
+        // ── Перезагрузка языка ──────────────────────────────────────
+      
+            protected override void OnAppearing()
         {
             base.OnAppearing();
             LanguageEvents.LanguageChanged += OnLanguageChanged;
@@ -321,7 +324,19 @@ namespace CityExplorer.Views
                 BuildUI();
             if (_viewModel is null) return;
             _ = _viewModel.LoadPlacesAsync();
+
+
+            Dispatcher.DispatchDelayed(TimeSpan.FromMilliseconds(300), () =>
+            {
+                if (_carousel?.ItemsSource is System.Collections.IList list && list.Count > 0)
+                {
+                    if (_position >= list.Count) _position = 0;
+                    _carousel.ScrollTo(_position,
+                        position: ScrollToPosition.Start, animate: false);
+                }
+            });
         }
+        
 
         protected override void OnDisappearing()
         {
@@ -329,6 +344,7 @@ namespace CityExplorer.Views
             LanguageEvents.LanguageChanged -= OnLanguageChanged;
         }
 
-        private void OnLanguageChanged() => MainThread.BeginInvokeOnMainThread(BuildUI);
+        private void OnLanguageChanged() =>
+            MainThread.BeginInvokeOnMainThread(BuildUI);
     }
 }

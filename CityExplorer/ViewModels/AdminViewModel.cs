@@ -6,10 +6,7 @@ using CityExplorer.Services;
 
 namespace CityExplorer.ViewModels;
 
-/// <summary>
-/// ViewModel 4. vahekaardile "Admin".
-/// Võimaldab lisada uusi kohti andmebaasi ja kustutada olemasolevaid (CRUD - Create, Delete).
-/// </summary>
+
 public class AdminViewModel : BaseViewModel
 {
     private readonly DatabaseService _databaseService;

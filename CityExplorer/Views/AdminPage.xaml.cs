@@ -233,14 +233,33 @@ namespace CityExplorer.Views
         private View BuildCategoryCard()
         {
             var names = CategoryNames;
+
             _categoryPicker = new Picker
             {
                 Title = AppResources.SelectCategory,
-                FontSize = 15,
-                HeightRequest = 48
+                FontSize = 17,                    // было 15
+                HeightRequest = 58,               // было 48
+                HorizontalOptions = LayoutOptions.Fill
             };
+            _categoryPicker.SetAppThemeColor(Picker.TextColorProperty,
+                ThemeService.TextPrimLight, ThemeService.TextPrimDark);
+            _categoryPicker.SetAppThemeColor(Picker.TitleColorProperty,
+                ThemeService.TextMutLight, ThemeService.TextMutDark);
             foreach (var name in names)
                 _categoryPicker.Items.Add(name);
+
+            // Рамка вокруг Picker — выглядит крупнее и заметнее
+            var pickerBorder = new Border
+            {
+                StrokeShape = new RoundRectangle { CornerRadius = 14 },
+                StrokeThickness = 1.5,
+                Padding = new Thickness(14, 2),
+                Content = _categoryPicker
+            };
+            pickerBorder.SetAppThemeColor(Border.StrokeProperty,
+                Color.FromArgb("#C5CAE9"), Color.FromArgb("#3A3A55"));
+            pickerBorder.SetAppThemeColor(Border.BackgroundColorProperty,
+                Color.FromArgb("#F5F6FF"), Color.FromArgb("#1E1E30"));
 
             var chipsLayout = new FlexLayout
             {
@@ -256,17 +275,17 @@ namespace CityExplorer.Views
                 var chipLabel = new Label
                 {
                     Text = $"{CategoryEmojis[i]} {names[i]}",
-                    FontSize = 13
+                    FontSize = 15                  
                 };
                 chipLabel.SetAppThemeColor(Label.TextColorProperty,
                     ThemeService.TextPrimLight, ThemeService.TextPrimDark);
 
                 var chip = new Border
                 {
-                    StrokeShape = new RoundRectangle { CornerRadius = 12 },
+                    StrokeShape = new RoundRectangle { CornerRadius = 14 },
                     StrokeThickness = 0,
-                    Padding = new Thickness(12, 7),
-                    Margin = new Thickness(4),
+                    Padding = new Thickness(16, 11),   
+                    Margin = new Thickness(5),
                     Content = chipLabel
                 };
                 chip.SetAppThemeColor(Border.BackgroundColorProperty,
@@ -279,7 +298,7 @@ namespace CityExplorer.Views
             }
 
             return LabelledCard($"🏷️  {AppResources.CategoryLabel}",
-                new VerticalStackLayout { Spacing = 10, Children = { chipsLayout, _categoryPicker } });
+                new VerticalStackLayout { Spacing = 14, Children = { chipsLayout, pickerBorder } });
         }
 
         private View BuildListHeader()
@@ -405,7 +424,7 @@ namespace CityExplorer.Views
                 StrokeThickness = 0,
                 Shadow = new Shadow { Brush = Brush.Black, Opacity = 0.07f, Radius = 8, Offset = new Point(0, 2) },
                 Padding = 0,
-                //ClipsToBounds = true,
+                
                 Content = cardGrid
             };
             card.SetAppThemeColor(Border.BackgroundColorProperty, ThemeService.CardLight, ThemeService.CardDark);
